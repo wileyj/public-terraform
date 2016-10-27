@@ -5,10 +5,13 @@ variable "id" {
 variable "name" {
   description = "VPC Name"
 }
+
 variable "subnets" {
   description = "List of subnet cidr's"
-//  type        = "map"
+
+  //  type        = "map"
 }
+
 variable "allocate_public_ip" {
   description = "Launch Hosts in subnet with public IP"
   default     = "false"

@@ -1,3 +1,5 @@
+
+
 /*
 resource "aws_route53_record" "www" {
    zone_id = "${aws_route53_zone.primary.zone_id}"
@@ -7,3 +9,4 @@ resource "aws_route53_record" "www" {
    records = ["${aws_eip.lb.public_ip}"]
 }
 */
+

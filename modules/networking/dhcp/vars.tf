@@ -1,5 +1,5 @@
 variable "name" {
-	description = "vpc name"
+  description = "vpc name"
 }
 
 variable "vpc_domain" {

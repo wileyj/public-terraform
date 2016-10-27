@@ -7,5 +7,5 @@ output "name" {
 }
 
 output "count" {
-	value = "count: ${length( keys(var.subnets))}"
+  value = "count: ${length( keys(var.subnets))}"
 }

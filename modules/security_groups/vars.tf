@@ -1,8 +1,11 @@
 variable "protocol" {
   description = "Traffic type (tcp/udp)"
-	// TCP: 6
-	// UDP: 17
-	// ICMP: 1
+
+  // TCP: 6
+
+  // UDP: 17
+
+  // ICMP: 1
 }
 
 variable "name" {
@@ -20,10 +23,11 @@ variable "source_address" {
 variable "to_port" {
   description = "Port to open from"
 }
+
 variable "from_port" {
   description = "Port to open to"
 }
 
 variable "description" {
-	description = "SG Description"
+  description = "SG Description"
 }

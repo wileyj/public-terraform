@@ -1,2 +1,1 @@
-resource "aws_autoscaling_group" "default" {
-}
+resource "aws_autoscaling_group" "default" {}

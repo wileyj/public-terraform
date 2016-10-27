@@ -1,3 +1,3 @@
 output "zone_dns" {
-	value = "${var.name}.${var.domain}"
+  value = "${var.name}.${var.domain}"
 }

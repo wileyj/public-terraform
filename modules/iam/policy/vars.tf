@@ -4,7 +4,7 @@ variable "policy_name" {
 
 variable "path" {
   description = "IAM PAth"
-  default = "/"
+  default     = "/"
 }
 
 variable "policy" {}
