@@ -1,7 +1,8 @@
 data "aws_iam_policy_document" "packer" {
   statement {
-    sid =  "${var.org_name_short}PackerBase",
-    effect = "Allow",
+    sid    = "${var.org_name_short}PackerBase"
+    effect = "Allow"
+
     actions = [
       "ec2:AttachVolume",
       "ec2:CreateVolume",
@@ -26,10 +27,11 @@ data "aws_iam_policy_document" "packer" {
       "ec2:DescribeImages",
       "ec2:RegisterImage",
       "ec2:CreateTags",
-      "ec2:ModifyImageAttribute"
-    ],
+      "ec2:ModifyImageAttribute",
+    ]
+
     resources = [
-      "*"
+      "*",
     ]
   }
 }

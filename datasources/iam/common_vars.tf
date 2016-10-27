@@ -1,14 +1,16 @@
 variable "org_name_long" {
-	description = "Org Name Long"
-	default = "Makerbot"
+  description = "Org Name Long"
+  default     = "Makerbot"
 }
+
 variable "org_name_short" {
-	description = "Org name short"
-	default = "MBOT"
+  description = "Org name short"
+  default     = "MBOT"
 }
+
 variable "org_name_short_lc" {
-	description = "Org name short lc"
-	default = "mbot"
+  description = "Org name short lc"
+  default     = "mbot"
 }
 
 variable "region" {
@@ -17,6 +19,6 @@ variable "region" {
 }
 
 variable "domain" {
-	description = "Base org domain"
-	default = "makerbot.net"
+  description = "Base org domain"
+  default     = "makerbot.net"
 }
