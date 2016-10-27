@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 module "env_global" {
-	source = "global/"
+  source = "global/"
 }
 
 module "env_core" {
@@ -12,17 +12,17 @@ module "env_core" {
 }
 
 module "env_bastion" {
-	source = "env/bastion"
+  source = "env/bastion"
 }
 
 module "env_app" {
-	source = "env/app"
+  source = "env/app"
 }
 
 module "env_web" {
-	source = "env/web"
+  source = "env/web"
 }
 
 module "env_db" {
-	source = "env/db"
+  source = "env/db"
 }
