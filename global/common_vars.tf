@@ -1,14 +1,16 @@
 variable "org_name" {
   description = "Org Name Long"
-  default = "Makerbot"
+  default     = "Makerbot"
 }
+
 variable "org_name_short" {
   description = "Org name short"
-  default = "MBOT"
+  default     = "MBOT"
 }
+
 variable "org_name_short_lc" {
   description = "Org name short lc"
-  default = "mbot"
+  default     = "mbot"
 }
 
 variable "region" {

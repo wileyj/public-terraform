@@ -1,54 +1,48 @@
 variable "buildenv" {
-	description = "Env to build"
-	default = "secondary"
+  description = "Env to build"
+  default     = "primary"
 }
 
 variable "org_name_long" {
-	description = "Org Name Long"
-	default = "Makerbot"
+  description = "Org Name Long"
+  default     = "Makerbot"
 }
 
 variable "org_name_short" {
-	description = "Org name short"
-	default = "MBOT"
+  description = "Org name short"
+  default     = "MBOT"
 }
 
 variable "org_name_short_lc" {
-	description = "Org name short lc"
-	default = "mbot"
+  description = "Org name short lc"
+  default     = "mbot"
 }
 
-/*
-variable "region" {
-	description = "AWS Region"
-	default = "us-west-2"
-}
-*/
-
-variable "owner"{
-	description = "Default Asset owner"
-	default = "Ops"
+variable "owner" {
+  description = "Default Asset owner"
+  default     = "Ops"
 }
 
 variable "region" {
-	description = "AWS Region"
-	default {
-		"primary" = "us-west-2",
-		"secondary" = "us-west-1"
-	}
+  description = "AWS Region"
+
+  default {
+    "primary"   = "us-west-2"
+    "secondary" = "us-west-1"
+  }
 }
 
 variable "azs" {
   description = "VPC Availability Zones"
-	type = "map"
+  type        = "map"
+
   default = {
-    "us-west-2" = "us-west-2a, us-west-2b",
+    "us-west-2" = "us-west-2a, us-west-2b"
     "us-west-1" = "us-west-1b, us-west-1c"
   }
 }
 
-
 variable "domain" {
-	description = "Base org domain"
-	default = "makerbot.net"
+  description = "Base org domain"
+  default     = "makerbot.net"
 }
