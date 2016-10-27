@@ -1,11 +1,9 @@
 module "s3_endpoint" {
-	source = "../../modules/networking/s3_endpoint"
-	vpc_id = ""
-	service_name = ""
-	route_table_ids = ""
+  source          = "../../modules/networking/s3_endpoint"
+  vpc_id          = ""
+  service_name    = ""
+  route_table_ids = ""
 }
-
-
 
 /*
 resource "aws_vpc_endpoint" "prd_endpoint_s3" {
@@ -20,3 +18,4 @@ resource "aws_vpc_endpoint" "prd_endpoint_s3" {
   ]
 }
 */
+
