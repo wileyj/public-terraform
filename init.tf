@@ -10,10 +10,11 @@ module "env_global" {
 module "env_core" {
   source = "env/core"
 }
+
 module "env_bastion" {
 	source = "env/bastion"
 }
-/*
+
 module "env_app" {
 	source = "env/app"
 }
@@ -25,4 +26,3 @@ module "env_web" {
 module "env_db" {
 	source = "env/db"
 }
-*/

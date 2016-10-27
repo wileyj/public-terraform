@@ -1,3 +1,10 @@
+output "vpc_id" {
+	value ="${module.vpc.id}"
+}
+
+output "vpc_name" {
+	value ="${module.vpc.name}"
+}
 output "cidr" {
 	value = "lookup(var.cidr, var.region[${var.buildenv}])"
 }

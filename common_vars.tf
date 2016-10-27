@@ -1,6 +1,6 @@
 variable "buildenv" {
 	description = "Env to build"
-	default = "primary"
+	default = "secondary"
 }
 
 variable "org_name_long" {
@@ -34,7 +34,7 @@ variable "region" {
 	description = "AWS Region"
 	default {
 		"primary" = "us-west-2",
-		"secondary" = "us-west-2"
+		"secondary" = "us-west-1"
 	}
 }
 
@@ -43,7 +43,7 @@ variable "azs" {
 	type = "map"
   default = {
     "us-west-2" = "us-west-2a, us-west-2b",
-    "us-west-2" = "us-west-2b, us-west-2c"
+    "us-west-1" = "us-west-1b, us-west-1c"
   }
 }
 
