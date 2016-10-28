@@ -8,8 +8,6 @@ variable "name" {
 
 variable "subnets" {
   description = "List of subnet cidr's"
-
-  //  type        = "map"
 }
 
 variable "allocate_public_ip" {

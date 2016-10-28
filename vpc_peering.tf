@@ -1,3 +1,4 @@
+/*
 // VPC Peering
 module "peer_core_bastion" {
   source      = "modules/vpc_peering/"
@@ -78,3 +79,4 @@ module "peer_app_db" {
   source_name = "${module.env_app.vpc_name}"
   dest_name   = "${module.env_db.vpc_name}"
 }
+*/
