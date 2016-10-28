@@ -3,7 +3,8 @@ module "dhcp" {
   vpc_domain = "${var.name_lower}.${var.domain}"
 
   //nameserver = "${var.nameserver}"
-  nameserver = "${ element(values(var.nameserver), 0 )}"
+  #nameserver = "${ element(values(var.nameserver), 0 )}"
+  nameserver = "${lookup(var.nameserver, var.region["${var.buildenv}"])}"
   name       = "${var.name}"
 }
 
