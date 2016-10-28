@@ -4,11 +4,11 @@ resource "aws_vpc_endpoint" "default" {
   route_table_ids = ["${var.route_table_ids}"]
 
   /*
-    route_table_ids = [
-      "${aws_route_table.prd_nated_b.id}",
-      "${aws_route_table.prd_nated_c.id}",
-      "${aws_route_table.prd_nated_d.id}",
-      "${aws_route_table.prd_nated_e.id}",
-    ]
-  */
+      route_table_ids = [
+        "${aws_route_table.prd_nated_b.id}",
+        "${aws_route_table.prd_nated_c.id}",
+        "${aws_route_table.prd_nated_d.id}",
+        "${aws_route_table.prd_nated_e.id}",
+      ]
+    */
 }
