@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BaseKinesis",
+            "Action": [
+                "kinesis:Describe*",
+                "kinesis:List*",
+                "kinesisanalytics:Describe*",
+                "kinesisanalytics:Discover*",
+                "firehose:Describe*",
+                "firehose:List*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

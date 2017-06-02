@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BaseCloudfront",
+            "Action": [
+                "cloudfront:CreateInvalidation",
+                "cloudfront:Get*",
+                "cloudfront:List*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

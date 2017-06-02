@@ -1,3 +1,3 @@
 output "id" {
-  value = "${aws_vpc_dhcp_options.default.id}"
+    value = "${aws_vpc_dhcp_options.default.id}"
 }

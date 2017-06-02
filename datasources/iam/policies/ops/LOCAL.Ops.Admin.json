@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "OpsAdminAllow",
+        "Action": [
+            "*"
+        ],
+        "Resource": [
+            "*"
+        ],
+        "Effect": "Allow"
+    },{
+        "Sid": "OpsAdminDeny",
+        "Effect": "Allow",
+        "Action": [
+            "aws-portal:Modify*",
+            "aws-portal:View*",
+            "iam:Delete*",
+            "iam:Update*",
+            "iam:Remove*"
+        ],
+        "Resource": [
+            "*"
+        ]
+    }]
+}

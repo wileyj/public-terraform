@@ -1,1 +1,0 @@
-rsync  -avz --progress --delete ~/Git/terraform ~/Dropbox/

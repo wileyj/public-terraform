@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BaseLambda",
+            "Action": [
+                "lambda:Describe*",
+                "lambda:List*",
+                "lambda:Get*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

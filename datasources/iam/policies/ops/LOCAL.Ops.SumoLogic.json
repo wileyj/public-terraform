@@ -1,0 +1,35 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "OpsSumoLogicRead",
+        "Effect": "Allow",
+        "Action": [
+            "s3:GetObject",
+            "s3:GetObjectVersion",
+            "s3:ListBucketVersions",
+            "s3:ListBucket"
+        ],
+        "Resource": [
+            "arn:aws:s3:::local-cloudtrail/*",
+            "arn:aws:s3:::local-cloudtrail"
+        ]
+    },{
+        "Sid": "OpsSumoLogicS3",
+        "Effect": "Allow",
+        "Action": [
+            "s3:PutObject"
+        ],
+        "Resource": [
+            "arn:aws:s3:::local-logs/*"
+        ]
+    },{
+        "Sid": "OpsSumoLogicMetrics",
+        "Action": [
+            "cloudwatch:ListMetrics",
+            "cloudwatch:GetMetricStatistics",
+            "ec2:DescribeInstances"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+    }]
+}

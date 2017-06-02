@@ -1,10 +1,12 @@
 variable "policy_name" {
-  description = "Policy Name"
+    description = "Policy Name"
 }
 
 variable "path" {
-  description = "IAM PAth"
-  default     = "/"
+    description = "IAM PAth"
+    default     = "/"
 }
 
-variable "policy" {}
+variable "policy" {
+    
+}

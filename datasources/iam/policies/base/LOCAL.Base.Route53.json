@@ -1,0 +1,18 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BaseRoute53",
+            "Action": [
+                "route53:Get*",
+                "route53:List*",
+                "route53domains:Get*",
+                "route53domains:List*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

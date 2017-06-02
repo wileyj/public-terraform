@@ -1,0 +1,18 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BaseSQS",
+            "Action": [
+                "sqs:SendMessage",
+                "sns:Publish",
+                "sqs:Get*",
+                "sqs:List*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

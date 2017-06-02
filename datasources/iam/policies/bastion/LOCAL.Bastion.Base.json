@@ -1,0 +1,23 @@
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Sid": "LocalBastionBase",
+        "Action": [
+            "autoscaling:Describe*",
+            "cloudwatch:ListMetrics",
+            "cloudwatch:GetMetricStatistics",
+            "cloudwatch:Describe*",
+            "ec2:Describe*",
+            "ec2:CreateTags*",
+            "elasticloadbalancing:Describe*",
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:PutBucketLogging",
+            "sns:Publish",
+            "sqs:SendMessage",
+            "sqs:GetQueueUrl"
+        ],
+        "Resource": "*",
+        "Effect": "Allow"
+    }
+}

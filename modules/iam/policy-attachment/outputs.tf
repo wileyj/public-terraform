@@ -1,3 +1,3 @@
 output "policy_name" {
-  value = "${aws_iam_policy.default.name}"
+    value = "${aws_iam_policy.default.name}"
 }

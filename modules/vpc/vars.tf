@@ -1,7 +1,11 @@
 variable "name" {
-  description = "VPC Name"
+    description = "VPC Name"
 }
 
 variable "cidr" {
-  description = "VPC CIDR"
+    description = "VPC CIDR"
+}
+
+variable "environment" {
+    description = "Environment Name"
 }

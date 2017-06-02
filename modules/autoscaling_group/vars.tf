@@ -1,11 +1,15 @@
 variable "vpc_name" {
-  description = "VPC Name"
+    description = "VPC Name"
 }
 
 variable "vpc_cidr" {
-  description = "VPC CIDR"
+    description = "VPC CIDR"
 }
 
 variable "vpc_azs" {
-  description = "VPC Availability Zones"
+    description = "VPC Availability Zones"
+}
+
+variable "environment" {
+    description = "Environment Name"
 }

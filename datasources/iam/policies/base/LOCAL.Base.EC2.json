@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BaseEC2",
+            "Action": [
+                "ec2:Describe*",
+                "ec2:Get*",
+                "elasticloadbalancing:Describe*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

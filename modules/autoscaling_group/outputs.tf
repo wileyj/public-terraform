@@ -1,7 +1,7 @@
 output "id" {
-  value = "test"
+    value = "test"
 }
 
 output "name" {
-  value = "test"
+    value = "test"
 }
