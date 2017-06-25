@@ -1,5 +1,5 @@
 data "template_file" "core_base" {
-    template = "${file("datasources/iam/policies/core/LOCAL.Core.Base.json")}"
+    template = "${file("datasources/iam/policies/core/MOIL.Core.Base.json")}"
 }
 
 resource "aws_iam_role" "core_base" {
