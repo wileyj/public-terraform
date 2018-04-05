@@ -1,5 +1,5 @@
 data "template_file" "bastion_base" {
-    template = "${file("datasources/iam/policies/bastion/LOCAL.Bastion.Base.json")}"
+    template = "${file("datasources/iam/policies/bastion/MOIL.Bastion.Base.json")}"
 }
 
 resource "aws_iam_role" "bastion_base" {

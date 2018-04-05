@@ -5,22 +5,22 @@ variable "buildenv" {
 
 variable "org_name_long" {
     description = "Org Name Long"
-    default     = "Local"
+    default     = "Moil"
 }
 
 variable "org_name" {
     description = "Org Name"
-    default     = "LOCAL"
+    default     = "MOIL"
 }
 
 variable "org_name_short" {
     description = "Org name short"
-    default     = "LOCAL"
+    default     = "MOIL"
 }
 
 variable "org_name_short_lc" {
     description = "Org name short lc"
-    default     = "local"
+    default     = "moil"
 }
 
 variable "owner" {
@@ -41,7 +41,7 @@ variable "azs" {
     type        = "map"
     default = {
         "us-east-1" = "us-east-1a,us-east-1d",
-        "us-west-2" = "us-west-2a,us-west-2b"
+        "us-west-2" = "us-west-2a,us-west-2c"
     }
 }
 
@@ -50,13 +50,13 @@ variable "azones" {
     description = "VPC Availability Zone"
     type        = "map"
     default = {
-        "primary" = [
+        "secondary" = [
             "us-east-1a",
             "us-east-1d"
         ]
-        "secondary" = [
+        "primary" = [
             "us-west-2a",
-            "us-west-2d"
+            "us-west-2c"
         ]
     }
 }
@@ -68,15 +68,15 @@ variable "bastion_cidr" {
 
 variable "domain" {
     description = "Base org domain"
-    default     = "local.com"
+    default     = "moil.io"
 }
 
 variable "coreos_use1_hvm_ami" {
     type = "map"
     default = {
-        alpha = "ami-2cb6d33a"
-        beta  = "ami-74f46e62"
-        stable = "ami-ad593cbb"
+        alpha = "ami-b1620fd1"
+        beta  = "ami-234c2c43"
+        stable = "ami-f4d4b694"
     }
 }
 

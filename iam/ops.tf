@@ -1,14 +1,14 @@
 data "template_file" "ops_snapshot" {
-    template = "${file("datasources/iam/policies/ops/LOCAL.Ops.Snapshot.json")}"
+    template = "${file("datasources/iam/policies/ops/MOIL.Ops.Snapshot.json")}"
 }
 data "template_file" "ops_packer" {
-    template = "${file("datasources/iam/policies/ops/LOCAL.Ops.Packer.json")}"
+    template = "${file("datasources/iam/policies/ops/MOIL.Ops.Packer.json")}"
 }
 data "template_file" "ops_admin" {
-    template = "${file("datasources/iam/policies/ops/LOCAL.Ops.Admin.json")}"
+    template = "${file("datasources/iam/policies/ops/MOIL.Ops.Admin.json")}"
 }
 data "template_file" "ops_restricted" {
-    template = "${file("datasources/iam/policies/ops/LOCAL.Ops.Restricted.json")}"
+    template = "${file("datasources/iam/policies/ops/MOIL.Ops.Restricted.json")}"
 }
 
 resource "aws_iam_policy" "ops_snapshot" {

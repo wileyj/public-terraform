@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "sumologic_trust" {
     }
 }
 data "template_file" "ops_sumologic" {
-    template = "${file("datasources/iam/policies/ops/LOCAL.Ops.SumoLogic.json")}"
+    template = "${file("datasources/iam/policies/ops/MOIL.Ops.SumoLogic.json")}"
 }
 
 resource "aws_iam_policy" "ops_sumologic" {

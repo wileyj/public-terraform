@@ -55,10 +55,10 @@ variable "buckets" {
     description = "Bucket Names"
     default = {
         "primary" = [
-            "local-bastion-primary-001"
+            "moil-bastion-primary-001"
         ]
         "secondary" = [
-            "local-bastion-secondary-001"
+            "moil-bastion-secondary-001"
         ]
     }
 }

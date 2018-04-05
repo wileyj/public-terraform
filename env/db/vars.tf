@@ -51,10 +51,10 @@ variable "buckets" {
     description = "Bucket Names"
     default = {
         "primary" = [
-            "local-db-primary-001"
+            "moil--db-primary-001"
         ]
         "secondary" = [
-            "local-db-secondary-001"
+            "moil--db-secondary-001"
         ]
     }
 }
