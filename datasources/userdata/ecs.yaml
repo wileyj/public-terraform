@@ -12,6 +12,9 @@ write_files:
     content: |
       net.ipv4.conf.all.route_localnet=1
       fs.file-max=2097152
+
+      # for es
+      vm.max_map_count=262144
       #Allow for more PIDs
       kernel.pid_max=65535
 
@@ -32,6 +35,7 @@ write_files:
 
       # Keep at least 64MB of free RAM space available
       vm.min_free_kbytes=65535
+
 
       #Prevent SYN attack
       net.ipv4.tcp_syncookies=1
@@ -174,7 +178,9 @@ write_files:
       ECS_LOGLEVEL=warn
       ECS_ENGINE_AUTH_TYPE=dockercfg
       ECS_ENGINE_AUTH_DATA={"https://index.docker.io/v1/":{"auth":"${docker_auth_key}","email":"${docker_auth_id}"},"quay.io":{"auth":"${quay_auth_key}","email":"${quay_auth_id}"}}
-      ECS_AVAILABLE_LOGGING_DRIVERS=["json-file","syslog","journald","gelf","fluentd"]
+      ECS_AVAILABLE_LOGGING_DRIVERS=["json-file","syslog","journald","gelf","fluentd","awslogs"]
+      ECS_ENGINE_TASK_CLEANUP_WAIT_DURATION=15m
+      ECS_IMAGE_CLEANUP_INTERVAL=10m
   - path: /var/lib/iptables/rules-save
     permissions: 0644
     owner: root
@@ -252,37 +258,64 @@ write_files:
     content: |
       #!/bin/bash
       IP=`ip -o -f inet addr show eth0 | awk '/scope global/ {print $4}'`
-      RANGE=`echo $$IP | cut -f1-3 -d "."`
-      MASK=`echo $$IP | awk '$1 ~ "^" {mask=$1; sub("^[^/]*","",mask); print mask}'`
-      /usr/bin/etcdctl set /coreos.com/network/config "{ \"Network\": \"$${RANGE}.0/24\" }"
-
+      RANGE=`echo $$IP | cut -f1-2 -d "."`
+      /usr/bin/etcdctl set /coreos.com/network/config "{ \"Network\": \"$${RANGE}.0.0/16\", \"Backend\": {\"Type\": \"vxlan\"}}"
+  - path: /tmp/update_docker_opts.sh
+    owner: root
+    permissions: 0755
+    content: |
+      #!/bin/sh
+      MAC_ADDR=`curl -s http://169.254.169.254/latest/meta-data/mac`
+      CIDR_FULL=`curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/$${MAC_ADDR}/vpc-ipv4-cidr-block`
+      CIDR_BASE=`echo $${CIDR_FULL} | cut -d/ -f1 | cut -d\. -f1-3`
+      LAST_OCTET=`echo $${CIDR_FULL} | cut -d/ -f1 | cut -d\. -f4`
+      DNS_OCTET=`expr $${LAST_OCTET} + 2`
+      DNS_IP="$${CIDR_BASE}.$${DNS_OCTET}"
+      if [ ! -d "/etc/docker" ]; then
+        mkdir /etc/docker
+      fi
+      cat <<EOF> /etc/docker/daemon.json
+      {
+        "dns": [
+          "$${DNS_IP}",
+          "8.8.8.8",
+          "8.8.4.4"
+        ]
+      }
+      EOF
 coreos:
   update:
     reboot-strategy: off
   units:
     - name: systemd-sysctl.service
       enable: true
-      command: start
+      command: restart
     - name: iptables-restore.service
       enable: true
       command: start
+    - name: etcd-member.service
+      enable: true
+      command: start
+      drop-ins:
+        - name: 40-etcd-cluster.conf
+          content: |
+            [Service]
+            Environment="ETCD_IMAGE_TAG=v3.1.8"
+            Environment="ETCD_NAME=etcd0"
+            Environment="ETCD_ADVERTISE_CLIENT_URLS=http://$$private_ipv4:2379"
+            Environment="ETCD_INITIAL_ADVERTISE_PEER_URLS=http://$$private_ipv4:2380"
+            Environment="ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379"
+            Environment="ETCD_LISTEN_PEER_URLS=http://$$private_ipv4:2380"
     - name: docker.socket
       enable: true
       command: start
-    - name: format-log.service
+    - name: docker.service
       command: start
-      content: |
-        [Unit]
-        Description=Formats the log drive
-        After=dev-xvdf.device
-        Requires=dev-xvdf.device
-        [Service]
-        Type=oneshot
-        RemainAfterExit=yes
-        ExecStart=/usr/sbin/wipefs -f /dev/xvdf
-        ExecStart=/usr/sbin/mkfs.xfs -f /dev/xvdf
-    - name: etcd2.service
-      command: start
+      drop-ins:
+        - name: 50-docker-options.conf
+          content: |
+            [Service]
+            ExecStartPre=/bin/sh /tmp/update_docker_opts.sh
     - name: flanneld.service
       command: start
       drop-ins:
@@ -290,6 +323,9 @@ coreos:
           content: |
             [Service]
             ExecStartPre=/bin/sh /tmp/update_etcd.sh
+    # - name: systemd-networkd.service
+    #   enable: true
+    #   command: restart
     - name: amazon-ecs-agent.service
       command: start
       runtime: true
@@ -300,6 +336,7 @@ coreos:
         Requires=docker.service
         Requires=flanneld.service
         After=flanneld.service
+        After=etcd.service
         [Service]
         Restart=always
         EnvironmentFile=/etc/ecs/ecs.config
@@ -332,8 +369,10 @@ coreos:
         Description=registrator
         After=docker.service
         After=amazon-ecs-agent.service
+        After=etcd.service
         Requires=docker.service
         Requires=amazon-ecs-agent.service
+        After=flanneld.service
         [Service]
         TimeoutStartSec=0
         EnvironmentFile=/etc/environment
@@ -361,27 +400,50 @@ coreos:
         Type=oneshot
         RemainAfterExit=yes
         ExecStart=/bin/sh -c "/usr/bin/hostnamectl set-hostname ${ecs_host_name}-`echo %m | head -c6`-`curl http://169.254.169.254/latest/meta-data/instance-id`"
-    - name: sumologic-journald-forwarder.service
-      command: start
-      content: |
-        [Unit]
-        Description=sumo-logic-journald-forwarder
-        [Service]
-        TimeoutStartSec=0
-        ExecStart=/bin/sh -c '/usr/bin/journalctl -f | /usr/bin/ncat --udp localhost 514'
-        Restart=always
-        RestartSec=5s
     - name: docker-tcp.socket
       command: start
       enable: true
       content: |
         [Unit]
         Description=Docker Socket for the API
-
         [Socket]
         ListenStream=2375
         Service=docker.service
         BindIPv6Only=both
-
         [Install]
         WantedBy=sockets.target
+    - name: format-log.service
+      command: start
+      content: |
+        [Unit]
+        Description=Formats the log drive
+        After=dev-xvdf.device
+        Requires=dev-xvdf.device
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/sbin/wipefs -f /dev/xvdf
+        ExecStart=/usr/sbin/mkfs.xfs -f /dev/xvdf
+    - name: srv-log.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount ephemeral to /srv/log
+        Requires=format-log.service
+        After=format-log.service
+        Before=docker.service
+        [Mount]
+        What=/dev/xvdf
+        Where=/srv/log
+        Type=xfs
+    - name: srv-log.service
+      command: start
+      content: |
+        [Unit]
+        Description=sets permissions of /srv/log
+        After=data.mount
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/bin/mkdir -p /srv/log/elasticsearch
+        ExecStart=/usr/bin/chmod -R 777 /srv/log

@@ -1,0 +1,27 @@
+{
+  "Version": "2012-10-17",
+  "Id": "${var.org_name}-${var.name}-Base",
+  "Statement": [
+    {
+      "Sid": "First",
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": [
+              "arn:aws:iam::${var.account_id}:root"
+          ]
+      },
+      "Action": [
+        "sqs:SendMessage",
+        "sns:Publish",
+        "sqs:Get*",
+        "sqs:List*"
+      ],
+      "Resource": "${aws_sqs_queue.default_deadletter.arn}",
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "${aws_sqs_queue.default_deadletter.arn}"
+        }
+      }
+    }
+  ]
+}

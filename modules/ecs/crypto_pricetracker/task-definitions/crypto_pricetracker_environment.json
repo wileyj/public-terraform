@@ -1,0 +1,4 @@
+{
+  "name": "REDISCLOUD_URL",
+  "value": "redis://crypto_pricetracker_redis:6379"
+}

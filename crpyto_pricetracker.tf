@@ -1,0 +1,25 @@
+module "crypto_pricetracker" {
+  source               = "modules/ecs/crypto_pricetracker"
+  vpc_id               = "${module.core.vpc_id}"
+  vpc_name             = "${module.core.vpc_name}"
+  domain               = "${var.domain}"
+  owner                = "${var.owner}"
+  environment          = "${module.core.environment}"
+  region               = "${var.region["${var.buildenv}"]}"
+  ecs_cluster          = "${module.core.ecs_cluster}"
+  ecs_base_role        = "${module.iam.moil_base_ecs_role}"
+  org_name             = "${var.org_name}"
+  cidr                 = "${module.core.vpc_cidr}"
+  public_subnets       = "${module.core.public_subnets}"
+  dns_zone             = "${module.core.route53_zone}"
+  public_dns_zone      = "Z2PSPAN38LGK44"
+  nodejs_docker_image  = "307234534562.dkr.ecr.us-west-2.amazonaws.com/crypto_pricetracker:latest"
+  nodejs_port          = 5000
+  nodejs_mem           = 512
+  nodejs_cpu           = 128
+  redis_docker_image   = "redis:latest"
+  redis_mem            = 512
+  redis_cpu            = 128
+  redis_source_volume  = "redisdata"
+  redis_container_path = "/data"
+}

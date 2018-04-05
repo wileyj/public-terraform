@@ -8,9 +8,8 @@ module "s3" {
     environment = "${var.environment}"
 }
 */
-
-
 /*
     hard to abstract really complex setups like lifecycle events and keep a single s3 module.
     maybe keep modules separate to a degree, and hardcode more complex buckets on a case by base basis
 */
+

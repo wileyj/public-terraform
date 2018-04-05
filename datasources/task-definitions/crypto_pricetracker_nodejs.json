@@ -1,0 +1,38 @@
+[
+  {
+    "name": "crypto_pricetracker_nodejs",
+    "links": [
+      "crypto_pricetracker_redis"
+    ],
+    "image": "307234534562.dkr.ecr.us-west-2.amazonaws.com/crypto_pricetracker:latest",
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 5000,
+        "hostPort": 5000
+      }
+    ],
+    "environment": [
+      {
+        "name": "REDISCLOUD_URL",
+        "value": "redis://localhost:6379"
+      }
+    ],
+    "memory": 256,
+    "cpu": 128
+  },
+  {
+    "mountPoints": [
+      {
+        "containerPath": "/data",
+        "sourceVolume": "redisdata",
+        "readOnly": false
+      }
+    ],
+    "name": "crypto_pricetracker_redis",
+    "image": "redis:latest",
+    "cpu": 128,
+    "memory": 256,
+    "essential": true
+  }
+]

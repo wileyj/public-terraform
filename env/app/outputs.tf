@@ -1,27 +1,43 @@
 output "vpc_id" {
-    value = "${aws_vpc.default.id}"
+  value = "${aws_vpc.default.id}"
+}
+
+output "igw" {
+  value = "${aws_internet_gateway.default.id}"
 }
 
 output "vpc_name" {
-    value = "${var.name}"
+  value = "${var.name}"
 }
 
 output "vpc_name_lower" {
-    value = "${var.name_lower}"
+  value = "${var.name_lower}"
 }
 
 output "vpc_cidr" {
-    value = "${lookup(var.cidr, var.region["${var.buildenv}"])}"
+  value = "${lookup(var.cidr, var.region["${var.buildenv}"])}"
 }
 
 output "vpc_sg_name" {
-    value = "${var.org_name}.${var.name}.Internal"
+  value = "${var.org_name}.${var.name}.Internal"
 }
 
 output "vpc_sg_id" {
-    value = "${aws_security_group.default.id}"
+  value = "${aws_security_group.default.id}"
 }
 
 output "vpc_subnets" {
-    value = ["${aws_route_table.private.*.id}","${aws_route_table.public.*.id}"]
+  value = ["${aws_subnet.private.*.id}", "${aws_subnet.public.*.id}"]
+}
+
+output "private_subnets" {
+  value = ["${aws_subnet.private.*.id}"]
+}
+
+output "public_subnets" {
+  value = ["${aws_subnet.public.*.id}"]
+}
+
+output "vpc_route_tables" {
+  value = ["${aws_route_table.private.*.id}", "${aws_route_table.public.*.id}"]
 }

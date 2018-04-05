@@ -1,5 +1,4 @@
 /* resources defined for completeness; there's no need for a cluster in this VPC though */
-
 /*
 data "template_file" "shared" {
     count  = "${length(var.ecs_env["${var.buildenv}"])}"
@@ -51,3 +50,4 @@ resource "aws_launch_configuration" "shared" {
 }
 
 */
+

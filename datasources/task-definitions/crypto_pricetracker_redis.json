@@ -1,0 +1,17 @@
+[{
+  "name": "crypto_pricetracker_redis",
+  "image": "redis:latest",
+  "cpu": 128,
+  "memory": 256,
+  "essential": true,
+  "portMappings": [{
+    "containerPort": 6379,
+    "hostPort": 6379,
+    "protocol": "tcp"
+  }],
+  "mountPoints": [{
+    "containerPath": "/data",
+    "sourceVolume": "redisdata",
+    "readOnly": false
+  }]
+}]

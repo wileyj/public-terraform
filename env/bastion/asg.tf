@@ -1,5 +1,4 @@
 /* shared resources defined for completeness; there's no need for a cluster in this VPC though */
-
 /*variable "shared_max_size" {
   default = "0"
 }
@@ -82,3 +81,4 @@ resource "aws_autoscaling_group" "shared" {
         propagate_at_launch = true
     }
 }*/
+

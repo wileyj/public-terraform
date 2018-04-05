@@ -1,0 +1,31 @@
+[{
+  "name": "cryptotracker_elasticsearch",
+  "image": "307234534562.dkr.ecr.us-west-2.amazonaws.com/cryptotracker_elasticsearch:latest",
+  "cpu": 512,
+  "memory": 1024,
+  "essential": true,
+  "portMappings": [{
+    "containerPort": 9200,
+    "hostPort": 9200
+  },{
+    "containerPort": 9300,
+    "hostPort": 9300
+  }],
+  "environment": [{
+    "name": "ES_JAVA_OPTS",
+    "value": "-Xms512m -Xmx512m"
+  },{
+    "name": "REGION",
+    "value": "us-west-2"
+  }],
+  "mountPoints": [{
+    "containerPath": "/usr/share/elasticsearch/data",
+    "sourceVolume": "esdata",
+    "readOnly": false
+  }],
+  "ulimits":[{
+    "HardLimit" : 65536,
+    "Name" : "nofile",
+    "SoftLimit" : 65536
+  }]
+}]

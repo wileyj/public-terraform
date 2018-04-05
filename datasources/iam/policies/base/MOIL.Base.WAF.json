@@ -4,8 +4,7 @@
         {
             "Sid": "BaseWaf",
             "Action": [
-                "waf:Get*",
-                "waf:List*"
+                "waf:Get*"
             ],
             "Resource": [
                 "*"

@@ -1,0 +1,35 @@
+[
+  {
+    "name": "crypto_pricetracker_nodejs",
+    "image": "${nodejs_docker_image}",
+    "essential": true,
+    "memory": ${nodejs_mem},
+    "cpu": ${nodejs_cpu},
+    "links": [
+      "crypto_pricetracker_redis"
+    ],
+    "portMappings": [
+      {
+        "containerPort": ${nodejs_port},
+        "hostPort": ${nodejs_port}
+      }
+    ],
+    "environment": [
+      ${environment}
+    ]
+  },
+  {
+    "name": "crypto_pricetracker_redis",
+    "image": "${redis_docker_image}",
+    "essential": true,
+    "memory": ${redis_mem},
+    "cpu": ${redis_cpu},
+    "mountPoints": [
+      {
+        "containerPath": "${redis_container_path}",
+        "sourceVolume": "${redis_source_volume}",
+        "readOnly": false
+      }
+    ]
+  }
+]
