@@ -1,0 +1,16 @@
+module "cryptotracker" {
+  source          = "modules/ecs/cryptotracker"
+  vpc_id          = "${module.core.vpc_id}"
+  vpc_name        = "${module.core.vpc_name}"
+  domain          = "${var.domain}"
+  owner           = "${var.owner}"
+  environment     = "${module.core.environment}"
+  region          = "${var.region["${var.buildenv}"]}"
+  ecs_cluster     = "${module.core.ecs_cluster}"
+  ecs_base_role   = "${module.iam.moil_base_ecs_role}"
+  org_name        = "${var.org_name}"
+  cidr            = "${module.core.vpc_cidr}"
+  public_subnets  = "${module.core.public_subnets}"
+  dns_zone        = "${module.core.route53_zone}"
+  public_dns_zone = "Z2PSPAN38LGK44"
+}
