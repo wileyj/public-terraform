@@ -2,3 +2,6 @@
 .terraform
 private-vars.tf
 terraform.tfstate*
+/sync-from
+/sync-to
+*.save
