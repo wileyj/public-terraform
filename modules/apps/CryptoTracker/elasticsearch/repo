@@ -1,0 +1,10 @@
+#!/bin/bash
+REPO_NAME=$1
+if [ $# -ne 1 ]; then
+    echo $0: usage: $0 REPO_NAME
+    exit 1
+fi
+$(aws ecr get-login --no-include-email --region us-west-2)
+docker build -t $REPO_NAME . --build-arg REGION=us-west-2 
+docker tag $REPO_NAME:latest 307234534562.dkr.ecr.us-west-2.amazonaws.com/$REPO_NAME:latest
+docker push 307234534562.dkr.ecr.us-west-2.amazonaws.com/$REPO_NAME:latest

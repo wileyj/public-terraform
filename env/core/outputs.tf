@@ -77,3 +77,11 @@ output "environment" {
 output "nat_gateways" {
   value = "${aws_nat_gateway.default.*.public_ip}"
 }
+
+output "region" {
+  value = "${var.region}"
+}
+
+output "azs" {
+  value = "${var.azones["${var.buildenv}"]}"
+}

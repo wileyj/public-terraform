@@ -32,9 +32,9 @@ resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.default.id}"
 
   /*route {
-                              cidr_block = "0.0.0.0/0"
-                              gateway_id = "${element(aws_nat_gateway.default.*.id, count.index)}"
-                              }*/
+                                cidr_block = "0.0.0.0/0"
+                                gateway_id = "${element(aws_nat_gateway.default.*.id, count.index)}"
+                                }*/
   tags {
     Name        = "${var.org_name}.${var.name}.private.${element(var.azones["${var.buildenv}"], count.index)}"
     VPC         = "${var.name}"

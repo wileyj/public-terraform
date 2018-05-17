@@ -89,7 +89,7 @@ resource "aws_cloudwatch_event_target" "snapshot_lambda" {
 }
 
 resource "aws_lambda_function" "snapshot_lambda" {
-  s3_bucket        = "wileyj-lambda-packages"
+  s3_bucket        = "bucket-lambda-packages"
   s3_key           = "ops-snapshot.zip"
   function_name    = "${var.org_name}_Ops_EC2_EBS_Snapshot"
   role             = "${aws_iam_role.snapshot_lambda.arn}"

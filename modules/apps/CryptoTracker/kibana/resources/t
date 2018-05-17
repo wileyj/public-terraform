@@ -1,0 +1,56 @@
+#!/bin/bash
+ELASTICSEARCH_URL="http://crypto.moil.io:9200"
+curl -XDELETE "$ELASTICSEARCH_URL/.kibana"
+
+#curl -XPOST \
+#  -D- "${ELASTICSEARCH_URL}/.kibana/index-pattern/eth.*.ticker" \
+#  -H 'Content-Type: application/json' -d \
+#  '{
+#    "title" : "eth.*.ticker",
+#    "timeFieldName": "tracker_time",
+#    "notExpandable": true
+#  }'
+
+#curl -XPOST \
+#  -D- "${ELASTICSEARCH_URL}/.kibana/index-pattern/btc.*.ticker" \
+#  -H 'Content-Type: application/json' \
+#  -d '
+#  {
+#    "title" : "btc.*.ticker",
+#    "timeFieldName": "tracker_time",
+#    "notExpandable": true
+#  }'
+
+
+#curl -XPOST \
+#  -D- "${ELASTICSEARCH_URL}/.kibana/index-pattern/*.*.ticker" \
+#  -H 'Content-Type: application/json' \
+#  -d '
+#  {
+#    "title" : "*.*.ticker",
+#    "timeFieldName": "tracker_time",
+#    "notExpandable": true
+#  }'
+
+#curl -XPOST \
+#  -D- "${ELASTICSEARCH_URL}/config/6.2.0" \
+#  -H 'Content-Type: application/json' \
+#  -d '
+#  {
+#    "defaultIndex": "crypto"
+#  }'
+#curl -XPOST -D- "${ELASTICSEARCH_URL}/.kibana/_refresh"
+
+
+curl -XPOST "${ELASTICSEARCH_URL}/_reindex" -d '
+{
+  "source": {
+    "index": ".kibana"
+  },
+  "dest": {
+    "index": ".kibana"
+  }
+}'
+
+
+python load_dashboards.py objects_visualizations.json "${ELASTICSEARCH_URL}"

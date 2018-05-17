@@ -32,14 +32,6 @@ resource "aws_iam_group" "cloud9_admins" {
   path = "/"
 }
 
-resource "aws_iam_user" "cloud9_user1" {
-  name = "petermac"
-}
-
-resource "aws_iam_user" "cloud9_user2" {
-  name = "mattbark"
-}
-
 resource "aws_iam_group_membership" "cloud9_users" {
   name = "cloud9_users"
 

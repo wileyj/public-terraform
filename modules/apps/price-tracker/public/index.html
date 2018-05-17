@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="img/apple/apple-icon-144x144.png" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <title>Price Tracker</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            Price Tracker <span style="font-size: small;">v0.8.3</span>
+            <iframe class="github-btn hidden-xs"
+                  src="http://ghbtns.com/github-btn.html?user=pablojorge&amp;repo=price-tracker&amp;type=watch&amp;count=true"
+                  allowtransparency="true"
+                  frameborder="0"
+                  style="margin-left: 15px"
+                  scrolling="0"
+                  width="80px"
+                  height="20px">
+            </iframe>
+            <iframe class="github-btn hidden-xs"
+                  src="http://ghbtns.com/github-btn.html?user=pablojorge&amp;repo=price-tracker&amp;type=fork&amp;count=true"
+                  allowtransparency="true"
+                  frameborder="0"
+                  scrolling="0"
+                  width="80px"
+                  height="20px">
+            </iframe>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="main" id="main-quotes">
+          <div class="row hide" id="global-error">
+            <div class="alert alert-danger">
+              <ul id="global-error-msgs" class="list-unstyled">
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-3 separator right-separator padded-15">
+            <h4>
+              <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+              Symbol
+              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#symbols-modal">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                Edit
+              </button>
+            </h4>
+            <hr>
+            <ul class="nav nav-pills nav-stacked" id="main-quotes-symbol-nav-bar">
+            </ul>
+          </div>
+          <div class="col-xs-12 col-sm-4 padded-15" id="main-quotes-exchanges-column">
+            <h4>
+              <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+              Exchange
+              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#exchanges-modal">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                Edit
+              </button>
+            </h4>
+            <hr>
+            <div id="main-quotes-exchanges-section">
+            </div>
+            <div id="main-quotes-details-section">
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-5 separator left-separator padded-15" id="main-quotes-charts-column">
+            <h4>
+              <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+              Chart
+              <button type="button" class="btn btn-default btn-xs" id="chart-reload">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                Reload
+              </button>
+            </h4>
+            <hr>
+          </div>
+
+          <div class="modal fade" id="symbols-modal" tabindex="-1" role="dialog" aria-labelledby="symbols-modal-label">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="symbols-modal-label">Choose symbols</h4>
+                </div>
+                <div class="modal-body" id="symbols-modal-body">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="symbols-modal-save">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="exchanges-modal" tabindex="-1" role="dialog" aria-labelledby="exchanges-modal-label">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="exchanges-modal-label">Choose exchanges</h4>
+                </div>
+                <div class="modal-body" id="exchanges-modal-body">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="exchanges-modal-save">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//code.highcharts.com/stock/highstock.js"></script>
+    <script src="//code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="lib/messages.js"></script>
+    <script src="lib/patterns.js"></script>
+    <script src="js/client.js"></script>
+    <script src="js/index.js"></script>
+
+  </body>
+</html>

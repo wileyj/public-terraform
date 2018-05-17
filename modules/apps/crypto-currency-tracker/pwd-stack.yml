@@ -1,0 +1,66 @@
+version: '3.1'
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+    prometheus_config_data: {}
+
+networks:
+  front-tier:
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.0.0
+    volumes:
+      - prometheus_config_data:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    networks:
+      - front-tier
+    restart: always
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == ${HOSTNAME}
+
+  coinmarketcap-exporter:
+    image: bcawthra/coinmarketcap-exporter:latest
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == ${HOSTNAME}
+    ports:
+        - 9101:9101
+    networks:
+        - front-tier
+    restart: always
+  
+  source:
+    image: containerize/git
+    environment: 
+      - REPO_LOCAL=/data/git/repos/prometheus
+      - REPO_BRANCH=master
+      - REPO_REMOTE=https://github.com/vegasbrianc/crypto-currency-tracker.git
+    tty: true
+    volumes: 
+      - prometheus_config_data:/data/git/repos/prometheus/prometheus
+
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment: 
+      - GF_SECURITY_ADMIN_PASSWORD=foobar
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - front-tier
